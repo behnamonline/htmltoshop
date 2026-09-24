@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>گربه شاپ | فروشگاه تخصصی لوازم جانبی گربه (دارک مود)</title>
+  <!-- فونت وزیرمتن و Tailwind CSS -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: { sans: ['Vazirmatn', 'sans-serif'] },
+          colors: {
+            cat: {
+              50: '#fff7ed',
+              100: '#ffedd5',
+              500: '#f97316',
+              600: '#ea580c',
+              900: '#431407'
+            }
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-slate-950 text-slate-100 font-sans min-h-screen flex flex-col">
+
+  <!-- HEADER -->
+  <header class="sticky top-0 z-50 bg-slate-900/90 backdrop-blur-md border-b border-slate-800 shadow-lg">
+    <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between gap-4">
+      <a href="#" onclick="showHome(); return false;" class="flex items-center gap-2">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-orange-500 to-amber-500 text-white flex items-center justify-center text-xl font-bold shadow-md shadow-orange-950">
+          🐱
+        </div>
+        <div>
+          <span class="font-extrabold text-lg text-amber-400 block leading-tight">گربه شاپ</span>
+          <small class="text-xs text-orange-400 font-medium">فروشگاه جانبی گربه</small>
+        </div>
+      </a>
+
+      <!-- SEARCH -->
+      <div class="flex-1 max-w-md relative hidden sm:block">
+        <span class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400">🔍</span>
+        <input id="searchInput" type="search" placeholder="جستجوی غذا، اسباب‌بازی، تشویقی..." autocomplete="off"
+          class="w-full bg-slate-800/80 border border-slate-700/80 text-slate-100 rounded-xl py-2 pr-9 pl-4 text-sm focus:bg-slate-800 focus:outline-none focus:border-orange-500 transition placeholder:text-slate-500">
+      </div>
+
+      <!-- CART BTN -->
+      <button onclick="showCart()" class="relative p-2.5 rounded-xl border border-slate-700 bg-slate-800/60 hover:border-orange-500 hover:bg-slate-800 transition text-slate-200">
+        🛒
+        <span id="cartCount" class="absolute -top-1.5 -left-1.5 bg-orange-600 text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full min-w-[18px] text-center">0</span>
+      </button>
+    </div>
+
+    <!-- NAV CATEGORIES -->
+    <nav class="border-t border-slate-800/80 bg-slate-900/50">
+      <div class="max-w-6xl mx-auto px-4 py-2 flex items-center gap-2 overflow-x-auto text-xs font-semibold scrollbar-none">
+        <button onclick="filterProducts('all', this)" class="nav-btn px-3 py-1.5 rounded-lg bg-orange-600 text-white whitespace-nowrap hover:bg-orange-500 transition">همه محصولات</button>
+        <button onclick="filterProducts('food', this)" class="nav-btn px-3 py-1.5 rounded-lg text-slate-400 hover:text-slate-200 hover:bg-slate-800 whitespace-nowrap transition">🥩 غذا و تشویقی</button>
+        <button onclick="filterProducts('toy', this)" class="nav-btn px-3 py-1.5 rounded-lg text-slate-400 hover:text-slate-200 hover:bg-slate-800 whitespace-nowrap transition">🎾 اسباب‌بازی</button>
+        <button onclick="filterProducts('hygiene', this)" class="nav-btn px-3 py-1.5 rounded-lg text-slate-400 hover:text-slate-200 hover:bg-slate-800 whitespace-nowrap transition">🚽 بهداشت و خاک</button>
+        <button onclick="filterProducts('bed', this)" class="nav-btn px-3 py-1.5 rounded-lg text-slate-400 hover:text-slate-200 hover:bg-slate-800 whitespace-nowrap transition">🛌 جای خواب و درخت</button>
+      </div>
+    </nav>
+  </header>
+
+  <!-- MAIN CONTAINER -->
+  <main class="max-w-6xl mx-auto px-4 py-6 flex-1 w-full">
+
+    <!-- HOME VIEW -->
+    <section id="homeView" class="page-view space-y-8">
+      <!-- HERO -->
+      <div class="rounded-3xl bg-gradient-to-l from-slate-900 via-slate-800 to-amber-950/40 border border-slate-800 p-6 md:p-10 relative overflow-hidden shadow-xl flex items-center">
+        <div class="max-w-xl z-10 space-y-3">
+          <span class="inline-block bg-orange-500/10 text-orange-400 border border-orange-500/20 text-xs font-bold px-3 py-1 rounded-full">بهترین کیفیت برای پیشی شما</span>
+          <h1 class="text-2xl md:text-4xl font-extrabold text-slate-100 leading-snug">هر چیزی که گربه دوست‌داشتنی شما نیاز دارد</h1>
+          <p class="text-slate-400 text-sm md:text-base leading-relaxed">بهترین برندهای غذای گربه، اسباب‌بازی‌های متحرک، درخت گربه و ملزومات بهداشتی با ارسال سریع.</p>
+          <button onclick="document.getElementById('productsSection').scrollIntoView({behavior:'smooth'})" class="bg-orange-600 hover:bg-orange-500 text-white font-bold px-5 py-2.5 rounded-xl shadow-lg shadow-orange-950 transition transform hover:-translate-y-0.5 text-sm">
+            مشاهده محصولات
+          </button>
+        </div>
+        <div class="hidden md:block absolute left-8 text-9xl opacity-10 select-none">🐈</div>
+      </div>
+
+      <!-- CATEGORIES -->
+      <div class="space-y-3">
+        <h2 class="font-bold text-lg text-slate-200">دسته‌بندی‌ها</h2>
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+          <button onclick="filterProducts('food')" class="bg-slate-900 p-4 rounded-2xl border border-slate-800 hover:border-slate-700 shadow-sm transition text-center space-y-1">
+            <div class="text-3xl">🥩</div>
+            <div class="text-xs font-bold text-slate-300">غذا و تشویقی</div>
+          </button>
+          <button onclick="filterProducts('toy')" class="bg-slate-900 p-4 rounded-2xl border border-slate-800 hover:border-slate-700 shadow-sm transition text-center space-y-1">
+            <div class="text-3xl">🎾</div>
+            <div class="text-xs font-bold text-slate-300">اسباب‌بازی</div>
+          </button>
+          <button onclick="filterProducts('hygiene')" class="bg-slate-900 p-4 rounded-2xl border border-slate-800 hover:border-slate-700 shadow-sm transition text-center space-y-1">
+            <div class="text-3xl">🚽</div>
+            <div class="text-xs font-bold text-slate-300">بهداشت و خاک</div>
+          </button>
+          <button onclick="filterProducts('bed')" class="bg-slate-900 p-4 rounded-2xl border border-slate-800 hover:border-slate-700 shadow-sm transition text-center space-y-1">
+            <div class="text-3xl">🛌</div>
+            <div class="text-xs font-bold text-slate-300">جای خواب و اسکرچر</div>
+          </button>
+        </div>
+      </div>
+
+      <!-- PRODUCTS -->
+      <div id="productsSection" class="space-y-4">
+        <h2 class="font-bold text-lg text-slate-200">محصولات ویژه گربه شاپ</h2>
+        <div id="productGrid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4"></div>
+      </div>
+    </section>
+
+    <!-- PRODUCT DETAIL VIEW -->
+    <section id="productView" class="page-view hidden space-y-4">
+      <button onclick="showHome()" class="text-xs font-bold text-slate-300 bg-slate-900 border border-slate-800 px-3 py-1.5 rounded-lg hover:bg-slate-800 transition">← بازگشت به فروشگاه</button>
+      <div id="productDetail" class="bg-slate-900 border border-slate-800 rounded-3xl p-6 shadow-md grid md:grid-cols-2 gap-6"></div>
+    </section>
+
+    <!-- CART & CHECKOUT VIEW -->
+    <section id="cartView" class="page-view hidden space-y-4">
+      <button onclick="showHome()" class="text-xs font-bold text-slate-300 bg-slate-900 border border-slate-800 px-3 py-1.5 rounded-lg hover:bg-slate-800 transition">← ادامه خرید</button>
+      <h1 class="text-xl font-extrabold text-slate-100">🛒 سبد خرید و تسویه حساب</h1>
+      <div id="cartContent"></div>
+    </section>
+
+    <!-- PAYMENT SUCCESS -->
+    <section id="paymentSuccessView" class="page-view hidden max-w-lg mx-auto bg-slate-900 p-8 rounded-3xl shadow-lg border border-emerald-900/50 text-center space-y-4">
+      <div class="w-16 h-16 bg-emerald-950 text-emerald-400 border border-emerald-800 rounded-full flex items-center justify-center text-2xl mx-auto">✓</div>
+      <h2 class="text-xl font-bold text-emerald-400">پرداخت با موفقیت انجام شد</h2>
+      <p class="text-xs text-slate-400 leading-relaxed">سفارش پیشی شما ثبت شد و به‌زودی آماده ارسال می‌شود!</p>
+      <div class="bg-slate-950 p-4 rounded-xl text-xs space-y-2 text-right border border-slate-800">
+        <div class="flex justify-between"><span class="text-slate-500">شماره سفارش:</span><span id="successOrderId" class="font-mono font-bold text-slate-200">-</span></div>
+        <div class="flex justify-between"><span class="text-slate-500">کد پیگیری زرین‌پال:</span><span id="successRefId" class="font-mono font-bold text-slate-200">-</span></div>
+        <div class="flex justify-between"><span class="text-slate-500">مبلغ پرداخت شده:</span><span id="successAmount" class="font-bold text-emerald-400">-</span></div>
+      </div>
+      <button onclick="showHome()" class="w-full bg-orange-600 hover:bg-orange-500 text-white font-bold py-2.5 rounded-xl text-sm transition">بازگشت به خانه</button>
+    </section>
+
+    <!-- PAYMENT FAILED -->
+    <section id="paymentFailedView" class="page-view hidden max-w-lg mx-auto bg-slate-900 p-8 rounded-3xl shadow-lg border border-rose-900/50 text-center space-y-4">
+      <div class="w-16 h-16 bg-rose-950 text-rose-400 border border-rose-800 rounded-full flex items-center justify-center text-2xl mx-auto">✕</div>
+      <h2 class="text-xl font-bold text-rose-400">پرداخت ناموفق بود</h2>
+      <p id="failedReason" class="text-xs text-slate-400 leading-relaxed">-</p>
+      <button onclick="showCart()" class="w-full bg-orange-600 text-white font-bold py-2.5 rounded-xl text-sm hover:bg-orange-500 transition">تلاش مجدد</button>
+    </section>
+
+    <!-- SEARCH RESULTS VIEW -->
+    <section id="searchView" class="page-view hidden space-y-4">
+      <button onclick="showHome()" class="text-xs font-bold text-slate-300 bg-slate-900 border border-slate-800 px-3 py-1.5 rounded-lg hover:bg-slate-800 transition">← بازگشت</button>
+      <h2 class="font-bold text-lg text-slate-200">نتایج جستجو</h2>
+      <div id="searchGrid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4"></div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="bg-slate-900 text-slate-400 text-center py-6 text-xs border-t border-slate-800 mt-10">
+    <div class="max-w-6xl mx-auto px-4 space-y-2">
+      <p class="font-bold text-sm text-slate-200">گربه شاپ 🐾</p>
+      <p class="opacity-80">فروشگاه آنلاین تخصصی ملزومات گربه | اتصال به درگاه امن زرین‌پال v4</p>
+    </div>
+  </footer>
+
+  <!-- TOAST -->
+  <div id="toast" class="fixed bottom-5 right-1/2 translate-x-1/2 bg-amber-500 text-slate-950 font-bold px-5 py-2.5 rounded-xl text-xs z-50 opacity-0 pointer-events-none transition-all duration-300 shadow-xl"></div>
+
+  <!-- JAVASCRIPT LOGIC -->
+  <script>
+    const products = [
+      { id: 1, name: "پوچ گربه ونپی با طعم مرغ و ماهی", category: "food", categoryName: "غذا و تشویقی", price: 65000, oldPrice: 78000, rating: 4.9, emoji: "🍗", description: "سوپ گربه لذیذ و مرطوب مناسب برای آبرسانی بدن گربه و تقویت موها." },
+      { id: 2, name: "اسکرچر و درخت گربه مدل اسنوز", category: "bed", categoryName: "جای خواب و درخت", price: 1850000, oldPrice: 2100000, rating: 4.8, emoji: "🌳", description: "درخت گربه چندطبقه دارای کنف‌های مقاوم برای ناخن‌کشی و باکس خواب راحت." },
+      { id: 3, name: "اسباب‌بازی ماهی متحرک شارژی", category: "toy", categoryName: "اسباب‌بازی", price: 340000, oldPrice: 390000, rating: 4.7, emoji: "🐟", description: "ماهی متحرک با حسگر حرکتی، قابل شارژ با کابل USB به همراه کت‌نیپ." },
+      { id: 4, name: "خاک گربه گرانول معطر ۱۰ لیتری", category: "hygiene", categoryName: "بهداشت و خاک", price: 190000, oldPrice: 0, rating: 4.6, emoji: "🚽", description: "خاک بنتونیت معطر بدون گرد و غبار با جذب بسیار بالا و جذب بوی عالی." },
+      { id: 5, name: "تشویقی مدادی گربه (پک ۴ عددی)", category: "food", categoryName: "غذا و تشویقی", price: 120000, oldPrice: 1450000, rating: 4.9, emoji: "🥩", description: "استیک‌های تشویقی لذیذ حاوی ویتامین‌های ضروری برای سلامت گربه." },
+      { id: 6, name: "برس پلاستیکی تخلیه موی گربه", category: "hygiene", categoryName: "بهداشت و خاک", price: 165000, oldPrice: 195000, rating: 4.8, emoji: "🪮", description: "شانه دکمه‌دار خودتکان برای جمع‌آوری راحت موهای اضافه گربه." }
+    ];
+
+    let cart = JSON.parse(localStorage.getItem("pishiyar_cart")) || [];
+
+    function formatPrice(price) {
+      return new Intl.NumberFormat("fa-IR").format(price) + " تومان";
+    }
+
+    function createProductCard(p) {
+      const discount = p.oldPrice && p.oldPrice > p.price ? Math.round(((p.oldPrice - p.price) / p.oldPrice) * 100) : null;
+      return `
+        <div onclick="showProduct(${p.id})" class="bg-slate-900 rounded-2xl border border-slate-800 p-3 shadow-md hover:border-slate-700 transition flex flex-col justify-between cursor-pointer relative group">
+          ${discount ? `<span class="absolute top-2 right-2 bg-rose-600 text-white text-[10px] font-bold px-1.5 py-0.5 rounded-md">${discount}%</span>` : ''}
+          <div class="h-36 bg-slate-950 rounded-xl flex items-center justify-center text-5xl mb-2 group-hover:scale-105 transition border border-slate-800/50">
+            ${p.emoji}
+          </div>
+          <div class="space-y-1">
+            <span class="text-[10px] font-bold text-orange-400">${p.categoryName}</span>
+            <h3 class="text-xs font-bold text-slate-200 line-clamp-2 leading-snug">${p.name}</h3>
+            <div class="text-[11px] text-amber-400 font-bold">★ ${p.rating}</div>
+          </div>
+          <div class="flex items-center justify-between mt-3 pt-2 border-t border-slate-800">
+            <div>
+              ${p.oldPrice ? `<span class="block text-[10px] text-slate-500 line-through">${formatPrice(p.oldPrice)}</span>` : ''}
+              <span class="text-xs font-extrabold text-slate-100">${formatPrice(p.price)}</span>
+            </div>
+            <button onclick="event.stopPropagation(); addToCart(${p.id})" class="bg-orange-600/20 text-orange-400 hover:bg-orange-600 hover:text-white border border-orange-500/30 w-8 h-8 rounded-lg flex items-center justify-center text-lg font-bold transition">+</button>
+          </div>
+        </div>
+      `;
+    }
+
+    function renderProducts(list = products) {
+      const grid = document.getElementById("productGrid");
+      grid.innerHTML = list.length ? list.map(createProductCard).join("") : `<p class="col-span-full text-center text-xs text-slate-500 py-8">محصولی پیدا نشد.</p>`;
+    }
+
+    function filterProducts(cat, btn) {
+      showHome();
+      if(btn) {
+        document.querySelectorAll('.nav-btn').forEach(b => b.className = "nav-btn px-3 py-1.5 rounded-lg text-slate-400 hover:text-slate-200 hover:bg-slate-800 whitespace-nowrap transition");
+        btn.className = "nav-btn px-3 py-1.5 rounded-lg bg-orange-600 text-white whitespace-nowrap transition font-bold";
+      }
+      renderProducts(cat === 'all' ? products : products.filter(p => p.category === cat));
+    }
+
+    function showProduct(id) {
+      const p = products.find(x => x.id === id);
+      if(!p) return;
+      hideAllViews();
+      document.getElementById("productView").classList.remove("hidden");
+      document.getElementById("productDetail").innerHTML = `
+        <div class="h-64 bg-slate-950 rounded-2xl border border-slate-800 flex items-center justify-center text-8xl">${p.emoji}</div>
+        <div class="space-y-4 flex flex-col justify-center">
+          <span class="text-xs font-bold text-orange-400">${p.categoryName}</span>
+          <h1 class="text-xl font-bold text-slate-100">${p.name}</h1>
+          <p class="text-xs text-slate-400 leading-relaxed">${p.description}</p>
+          <div class="text-lg font-extrabold text-slate-100">${formatPrice(p.price)}</div>
+          <button onclick="addToCart(${p.id})" class="bg-orange-600 hover:bg-orange-500 text-white font-bold py-3 px-6 rounded-xl text-sm shadow-lg transition">افزودن به سبد خرید 🛒</button>
+        </div>
+      `;
+    }
+
+    function addToCart(id) {
+      const item = cart.find(x => x.id === id);
+      if(item) item.quantity++;
+      else cart.push({id, quantity: 1});
+      saveCart();
+      showToast("به سبد خرید اضافه شد 🐱");
+    }
+
+    function saveCart() {
+      localStorage.setItem("pishiyar_cart", JSON.stringify(cart));
+      document.getElementById("cartCount").textContent = cart.reduce((s, i) => s + i.quantity, 0);
+    }
+
+    function showCart() {
+      hideAllViews();
+      document.getElementById("cartView").classList.remove("hidden");
+      renderCart();
+    }
+
+    function renderCart() {
+      const container = document.getElementById("cartContent");
+      if(!cart.length) {
+        container.innerHTML = `<div class="text-center py-12 bg-slate-900 rounded-3xl border border-slate-800 space-y-3"><div class="text-4xl">🛒</div><p class="text-sm font-bold text-slate-400">سبد خرید شما خالی است</p></div>`;
+        return;
+      }
+      const total = cart.reduce((s, i) => {
+        const p = products.find(x => x.id === i.id);
+        return s + (p ? p.price * i.quantity : 0);
+      }, 0);
+
+      container.innerHTML = `
+        <div class="grid lg:grid-cols-3 gap-6">
+          <div class="lg:col-span-2 space-y-3">
+            ${cart.map(i => {
+              const p = products.find(x => x.id === i.id);
+              return `
+                <div class="bg-slate-900 p-3 rounded-2xl border border-slate-800 flex items-center gap-3">
+                  <div class="w-16 h-16 bg-slate-950 rounded-xl flex items-center justify-center text-3xl border border-slate-800">${p.emoji}</div>
+                  <div class="flex-1">
+                    <h4 class="text-xs font-bold text-slate-200">${p.name}</h4>
+                    <span class="text-xs font-bold text-slate-100">${formatPrice(p.price * i.quantity)}</span>
+                  </div>
+                  <div class="flex items-center gap-2 bg-slate-950 px-2 py-1 rounded-lg border border-slate-800 text-xs font-bold text-slate-300">
+                    <button onclick="changeQty(${p.id}, -1)">-</button>
+                    <span>${i.quantity}</span>
+                    <button onclick="changeQty(${p.id}, 1)">+</button>
+                  </div>
+                </div>
+              `;
+            }).join("")}
+          </div>
+          <div class="bg-slate-900 p-5 rounded-2xl border border-slate-800 space-y-4 h-fit">
+            <h3 class="font-bold text-sm text-slate-200">اطلاعات تحویل و پرداخت</h3>
+            <form onsubmit="event.preventDefault(); processPayment();" class="space-y-3 text-xs">
+              <input id="cName" type="text" placeholder="نام و نام خانوادگی *" class="w-full bg-slate-950 border border-slate-800 text-slate-100 p-2.5 rounded-xl focus:outline-none focus:border-orange-500 placeholder:text-slate-600" required>
+              <input id="cPhone" type="tel" placeholder="شماره موبایل *" class="w-full bg-slate-950 border border-slate-800 text-slate-100 p-2.5 rounded-xl focus:outline-none focus:border-orange-500 placeholder:text-slate-600" required>
+              <textarea id="cAddress" placeholder="آدرس دقیق پستی *" class="w-full bg-slate-950 border border-slate-800 text-slate-100 p-2.5 rounded-xl focus:outline-none focus:border-orange-500 placeholder:text-slate-600" required></textarea>
+              <div class="border-t border-slate-800 pt-3 flex justify-between font-bold text-sm">
+                <span class="text-slate-400">مبلغ قابل پرداخت:</span>
+                <span class="text-orange-400">${formatPrice(total)}</span>
+              </div>
+              <button type="submit" id="payBtn" class="w-full bg-orange-600 hover:bg-orange-500 text-white font-bold py-3 rounded-xl transition">پرداخت آنلاین و ثبت سفارش</button>
+            </form>
+          </div>
+        </div>
+      `;
+    }
+
+    function changeQty(id, amt) {
+      const item = cart.find(x => x.id === id);
+      if(item) {
+        item.quantity += amt;
+        if(item.quantity <= 0) cart = cart.filter(x => x.id !== id);
+      }
+      saveCart();
+      renderCart();
+    }
+
+    async function processPayment() {
+      const btn = document.getElementById("payBtn");
+      btn.disabled = true;
+      btn.textContent = "در حال اتصال به زرین‌پال...";
+
+      try {
+        const res = await fetch("/api/payment/request", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            customer: {
+              name: document.getElementById("cName").value,
+              phone: document.getElementById("cPhone").value,
+              address: document.getElementById("cAddress").value
+            },
+            cart_items: cart
+          })
+        });
+        const data = await res.json();
+        if(data.payment_url) window.location.href = data.payment_url;
+        else throw new Error("آدرس پرداخت بازگردانده نشد.");
+      } catch (err) {
+        alert("خطا در برقراری ارتباط با سرور. (جهت اتصال واقعی نیاز به بک‌اند فعال روی پروژه دارید)");
+        btn.disabled = false;
+        btn.textContent = "پرداخت آنلاین و ثبت سفارش";
+      }
+    }
+
+    function showHome() {
+      hideAllViews();
+      document.getElementById("homeView").classList.remove("hidden");
+    }
+
+    function hideAllViews() {
+      document.querySelectorAll(".page-view").forEach(v => v.classList.add("hidden"));
+    }
+
+    function showToast(msg) {
+      const t = document.getElementById("toast");
+      t.textContent = msg;
+      t.classList.remove("opacity-0", "pointer-events-none");
+      setTimeout(() => t.classList.add("opacity-0", "pointer-events-none"), 2000);
+    }
+
+    document.getElementById("searchInput").addEventListener("input", function() {
+      const q = this.value.trim().toLowerCase();
+      if(!q) { showHome(); return; }
+      hideAllViews();
+      document.getElementById("searchView").classList.remove("hidden");
+      const res = products.filter(p => p.name.toLowerCase().includes(q) || p.description.toLowerCase().includes(q));
+      document.getElementById("searchGrid").innerHTML = res.length ? res.map(createProductCard).join("") : `<p class="col-span-full text-center text-xs text-slate-500 py-8">محصولی یافت نشد.</p>`;
+    });
+
+    renderProducts();
+    saveCart();
+  </script>
+</body>
+</html>

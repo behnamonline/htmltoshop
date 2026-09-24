@@ -1,0 +1,45 @@
+این فایل html ببین
+یه فروشگاه برای خودم درست کردم با html
+حالا میخوام روی کلودفلر ورکر اجراش کنم
+
+تغییراتی که میخوام
+
+دیتابیس D1
+تیبل products ایجاد بشه
+به همراه تیبل orders
+
+orders (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    user_id INTEGER NOT NULL,
+                    products TEXT NOT NULL,
+                    price INTEGER NOT NULL,
+                    shipping_info TEXT,
+                    paid INTEGER DEFAULT 0,
+                    payment_info TEXT DEFAULT NULL,
+                    status INTEGER DEFAULT 0
+                )
+
+و وقتی سفارش ثبت میشه یا پرداخت میشه به تلگرامم پیام بده به وسیله ی ربات
+به MY_CHAT_ID ارسال بشه (خودم ستش میکنم)
+
+وقتی که آدرس فروشگاهم /init میزنم هم تیبل ها درست بشن
+
+
+میخوام کاربر بتونه سفارششو پرداخت آنلاین هم بکنه
+از کلاس فایل zarinpal.js استفاده کن
+و اینجوری ایمپورتش کن که شلوغ نشه فایلم
+import zarinPal from "./zarinpal.js"
+
+
+دقت کن که از داشبورد کلودفلر میخوام اینکارو بکنم پس html که بت دادم رو توی فایل myshop.js بریز
+const HTML_CONTENT = `<!DOCTYPE html>
+<html dir="rtl" lang="fa">
+<head>
+  <meta charset="utf-8"/>
+  ... (ادامه کد HTML شما) ...
+</body>
+</html>`;
+بعد ایمپورتش کن
+
+سورس workers.js
+سورس myshop.js رو بهم بده
